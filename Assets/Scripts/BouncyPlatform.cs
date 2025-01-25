@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class BouncyPlatform : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BouncyPlatform : MonoBehaviour
 
     private IEnumerator Bounce(float timer, int maxDuration)
     {
+        float startY = _position.y;
+        
         while (timer < maxDuration)
         {
 
