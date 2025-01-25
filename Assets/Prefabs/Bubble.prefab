@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7118996375363699129}
   - component: {fileID: 2771468875773486176}
   - component: {fileID: 755272051766763026}
+  - component: {fileID: 4049744278030734628}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Player
@@ -150,3 +151,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _customGrav: -1.5
+--- !u!114 &4049744278030734628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5607319033918380377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248268965c5bc7b4abca6daf99b61aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
