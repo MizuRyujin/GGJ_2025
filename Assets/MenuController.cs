@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject[] _buttons;
     [SerializeField] private TMP_Text _titleText;
     [SerializeField] private float _fadeTime;
+    [SerializeField] private GameObject _lossMenu;
 
     private void Awake()
     {
@@ -24,12 +25,19 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         GameManager.ManagerInstance.OnStartGame += StartFadeOut;
+        GameManager.ManagerInstance.OnBubbleBurst += ShowLossScreen;
+
         StartCoroutine(FadeInMenus(_fadeTime));
     }
 
     private void StartFadeOut()
     {
         StartCoroutine(FadeOutMenus());
+    }
+
+    private void ShowLossScreen()
+    {
+        _lossMenu.SetActive(true);
     }
 
     private IEnumerator FadeInMenus(float time)

@@ -6,7 +6,8 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player should reset");
+            other.GetComponent<BubbleMovement>().Burst();
+            GameManager.ManagerInstance.OnBubbleBurst?.Invoke();
         }    
     }
 }

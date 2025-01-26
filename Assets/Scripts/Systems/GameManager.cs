@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager ManagerInstance { get; private set; }
     public Action OnStartGame;
     public Action OnPauseGame;
+    public Action OnBubbleBurst;
 
     private void Awake()
     {
