@@ -15,8 +15,9 @@ public class BubbleAnimations : MonoBehaviour
         _movement.StartMove();
     }
 
-    private void TriggerStartAnim()
+    public void TriggerStartAnim()
     {
+        _animator.ResetTrigger("Start");
         _animator.SetTrigger("Start");
     }
 

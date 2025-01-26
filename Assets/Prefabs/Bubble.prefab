@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 7450184756042667946}
   _speed: 3
-  _rotationSpeed: 30
+  _rotationSpeed: 60
   _customGrav: -1.5
 --- !u!1001 &4513487781588896463
 PrefabInstance:

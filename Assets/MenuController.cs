@@ -8,6 +8,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject[] _buttons;
     [SerializeField] private TMP_Text _titleText;
     [SerializeField] private float _fadeTime;
+    [SerializeField] private GameObject _inGameUI;
+    [SerializeField] private GameObject _startMenu;
+    [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _lossMenu;
 
     private void Awake()
@@ -26,6 +29,7 @@ public class MenuController : MonoBehaviour
     {
         GameManager.ManagerInstance.OnStartGame += StartFadeOut;
         GameManager.ManagerInstance.OnBubbleBurst += ShowLossScreen;
+        GameManager.ManagerInstance.OnPauseGame += ShowPauseMenu;
 
         StartCoroutine(FadeInMenus(_fadeTime));
     }
@@ -35,8 +39,21 @@ public class MenuController : MonoBehaviour
         StartCoroutine(FadeOutMenus());
     }
 
+    private void ShowPauseMenu()
+    {
+        if (_pauseMenu.activeSelf == true)
+        {
+            _inGameUI.SetActive(true);
+            _pauseMenu.SetActive(false);
+            return;
+        }
+        _inGameUI.SetActive(false);
+        _pauseMenu.SetActive(true);
+    }
+
     private void ShowLossScreen()
     {
+        _inGameUI.SetActive(false);
         _lossMenu.SetActive(true);
     }
 
@@ -103,5 +120,14 @@ public class MenuController : MonoBehaviour
         {
             button.GetComponent<Button>().enabled = false;
         }
+
+        _startMenu.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.ManagerInstance.OnStartGame -= StartFadeOut;
+        GameManager.ManagerInstance.OnBubbleBurst -= ShowLossScreen;
+        GameManager.ManagerInstance.OnPauseGame -= ShowPauseMenu;
     }
 }

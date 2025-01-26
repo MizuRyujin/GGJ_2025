@@ -6,6 +6,8 @@ public class BubbleMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _customGrav;
+    [SerializeField] private ParticleSystem _burstParticles;
+    [SerializeField] private ParticleSystem _boostParticles;
     private MeshRenderer _renderer;
     private Transform _transform;
     private Rigidbody _rb;
@@ -13,6 +15,8 @@ public class BubbleMovement : MonoBehaviour
     private Vector3 _velocityOnPause;
     private Vector3 _startPosition;
     private bool _paused;
+
+    public bool Paused { get => _paused; }
 
     private void Awake()
     {
@@ -28,8 +32,9 @@ public class BubbleMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !_paused)
         {
+            // _boostParticles.Play();
             _rb.AddForce(_transform.up * 100f);
         }
     }
@@ -52,17 +57,22 @@ public class BubbleMovement : MonoBehaviour
 
     public void Restart()
     {
+        _paused = true;
+        GetComponent<BubbleState>().BubbleStrenght = 100f;
         _rb.MovePosition(_startPosition);
+        _rb.rotation = Quaternion.identity;
         _transform.localScale = Vector3.zero;
         _renderer.enabled = true;
-
+        _rb.constraints = _rbConstraints;
+        GameManager.ManagerInstance.BubbleBursted(false);
     }
 
     public void Burst()
     {
-        // _paused = true;
-        // _renderer.enabled = false;
-        // _rb.linearVelocity = Vector3.zero;
+        _paused = true;
+        _rb.linearVelocity = Vector3.zero;
+        _renderer.enabled = false;
+        // _burstParticles.Play();
     }
 
     private void ApplyGravity()
@@ -79,10 +89,12 @@ public class BubbleMovement : MonoBehaviour
         if (Input.GetAxis("Horizontal") != 0f)
         {
             newVelocity += _transform.right * Input.GetAxis("Horizontal") * _speed * Time.fixedDeltaTime;
+            newVelocity.x = newVelocity.x > 10f ? 10f : newVelocity.x;
         }
         if (Input.GetAxis("Vertical") != 0f)
         {
             newVelocity += _transform.forward * Input.GetAxis("Vertical") * _speed * Time.fixedDeltaTime;
+            newVelocity.z = newVelocity.z > 10f ? 10f : newVelocity.z;
         }
         _rb.linearVelocity += newVelocity;
     }
@@ -111,9 +123,14 @@ public class BubbleMovement : MonoBehaviour
         }
         else
         {
-            _rb.linearVelocity = _velocityOnPause;
             _rb.constraints = _rbConstraints;
+            _rb.linearVelocity = _velocityOnPause;
         }
     }
 
+    private void OnDestroy()
+    {
+        GameManager.ManagerInstance.OnPauseGame -= PauseBubble;
+
+    }
 }
