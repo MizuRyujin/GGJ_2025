@@ -23,16 +23,12 @@ public class MenuController : MonoBehaviour
     }
     private void Start()
     {
-        if (GameManager.ManagerInstance != null)
-        {
-            GameManager.ManagerInstance.OnStartGame += StartFadeOut;
-        }
+        GameManager.ManagerInstance.OnStartGame += StartFadeOut;
         StartCoroutine(FadeInMenus(_fadeTime));
     }
 
     private void StartFadeOut()
     {
-        Debug.Log("Fading main menu");
         StartCoroutine(FadeOutMenus());
     }
 
@@ -77,9 +73,9 @@ public class MenuController : MonoBehaviour
     {
         float progress = 2f;
         float alphaVal = 1f;
-        while (progress > 2f)
+        while (progress > 0f)
         {
-            alphaVal -= Time.deltaTime / progress * 2;
+            alphaVal -= Time.deltaTime / progress;
 
             _titleText.color = new Color(_titleText.color.r,
                                             _titleText.color.g, _titleText.color.b, alphaVal);

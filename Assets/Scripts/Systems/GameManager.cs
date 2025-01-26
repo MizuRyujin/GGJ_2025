@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,13 +13,13 @@ public class GameManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            _instance = this;
-            ManagerInstance = _instance;
-            DontDestroyOnLoad(_instance);
+            Destroy(this);
         }
         else
         {
-            Destroy(this);
+            _instance = this;
+            ManagerInstance = _instance;
+            DontDestroyOnLoad(_instance);
         }
     }
 
@@ -31,6 +32,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         OnStartGame?.Invoke();
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void ExitGame()
