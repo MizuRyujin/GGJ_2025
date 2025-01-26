@@ -16,6 +16,7 @@ public class BouncyPlatform : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         other.collider.attachedRigidbody.AddForce(0, _bounceStrenght, 0);
+        other.collider.GetComponent<BubbleState>().BubbleStrenght = 100f;
         _animator.SetTrigger("Bounce");
     }
 }

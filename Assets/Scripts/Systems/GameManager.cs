@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         SceneManager.LoadScene(0);
+        Debug.Log("Should play sound");
         _introSound.Play();
     }
 

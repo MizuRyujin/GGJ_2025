@@ -34,7 +34,7 @@ public class BubbleMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !_paused)
         {
-            // _boostParticles.Play();
+            _boostParticles.Play();
             _rb.AddForce(_transform.up * 100f);
         }
     }
@@ -72,7 +72,7 @@ public class BubbleMovement : MonoBehaviour
         _paused = true;
         _rb.linearVelocity = Vector3.zero;
         _renderer.enabled = false;
-        // _burstParticles.Play();
+        _burstParticles.Play();
     }
 
     private void ApplyGravity()

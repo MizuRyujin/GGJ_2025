@@ -27,7 +27,7 @@ public class BubbleState : MonoBehaviour
         if (!_bubbleMovement.Paused)
         {
             BubbleStrenght -= 1f * Time.deltaTime;
-            // _bubbleStrenghtBar.fillAmount -= 
+            _bubbleStrenghtBar.fillAmount = BubbleStrenght / 100f;
             UseBoost();
         }
 
@@ -43,11 +43,11 @@ public class BubbleState : MonoBehaviour
 
     private IEnumerator BurstBubble()
     {
-        Debug.Log("Busrt Corotine");
         BubbleStrenght = 100f;
+        _bubbleStrenghtBar.fillAmount = 1f;
         GameManager.ManagerInstance.BubbleBursted(true);
         _bubbleMovement.GetComponent<BubbleMovement>().Burst();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         GameManager.ManagerInstance.OnBubbleBurst?.Invoke();
     }
 }
