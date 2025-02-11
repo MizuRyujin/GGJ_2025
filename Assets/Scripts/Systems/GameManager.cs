@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -28,17 +28,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        _introSound.Play();
-    }
-
     // Update is called once per frame
     private void Update()
     {
         if (_bubbleBursted) return;
         PauseGame();
     }
+
+    public void PlayIntroSound() => _introSound.Play();
 
     public void BubbleBursted(bool burst)
     {
@@ -65,8 +62,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         SceneManager.LoadScene(0);
-        Debug.Log("Should play sound");
-        _introSound.Play();
     }
 
     public void ExitGame()

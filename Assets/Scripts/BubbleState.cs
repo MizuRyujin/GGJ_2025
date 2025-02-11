@@ -43,11 +43,11 @@ public class BubbleState : MonoBehaviour
 
     private IEnumerator BurstBubble()
     {
-        BubbleStrenght = 100f;
-        _bubbleStrenghtBar.fillAmount = 1f;
-        GameManager.ManagerInstance.BubbleBursted(true);
         _bubbleMovement.GetComponent<BubbleMovement>().Burst();
+        GameManager.ManagerInstance.BubbleBursted(true);
         yield return new WaitForSeconds(0.5f);
+        _bubbleStrenghtBar.fillAmount = 1f;
+        BubbleStrenght = 100f;
         GameManager.ManagerInstance.OnBubbleBurst?.Invoke();
     }
 }

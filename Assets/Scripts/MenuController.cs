@@ -34,6 +34,11 @@ public class MenuController : MonoBehaviour
         StartCoroutine(FadeInMenus(_fadeTime));
     }
 
+    public void StartGame()
+    {
+        GameManager.ManagerInstance.StartGame();
+    }
+
     private void StartFadeOut()
     {
         StartCoroutine(FadeOutMenus());
@@ -61,6 +66,8 @@ public class MenuController : MonoBehaviour
     {
         float progress = time;
         float alphaVal = 0f;
+        yield return new WaitForSeconds(.5f);
+        GameManager.ManagerInstance.PlayIntroSound();
         while (progress > 2f)
         {
             alphaVal += Time.deltaTime / progress * 2;
