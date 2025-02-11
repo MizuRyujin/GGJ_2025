@@ -13,6 +13,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _lossMenu;
 
+    public void StartGame() => GameManager.ManagerInstance.StartGame();
+    public void ReturnToMainMenu() => GameManager.ManagerInstance.ReloadScene();
+    public void ExitGame() => GameManager.ManagerInstance.ExitGame();
+
     private void Awake()
     {
         foreach (GameObject button in _buttons)
@@ -32,11 +36,6 @@ public class MenuController : MonoBehaviour
         GameManager.ManagerInstance.OnPauseGame += ShowPauseMenu;
 
         StartCoroutine(FadeInMenus(_fadeTime));
-    }
-
-    public void StartGame()
-    {
-        GameManager.ManagerInstance.StartGame();
     }
 
     private void StartFadeOut()

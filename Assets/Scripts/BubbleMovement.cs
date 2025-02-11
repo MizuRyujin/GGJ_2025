@@ -35,13 +35,14 @@ public class BubbleMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !_paused)
         {
             _boostParticles.Play();
+            // Play sound here
             _rb.AddForce(_transform.up * 100f);
         }
     }
 
     private void FixedUpdate()
     {
-        //! Should lock _rb position and perseve velocity value when pause
+        // Should lock _rb position and perseve velocity value when pause
         if (_paused) return;
         ApplyGravity();
         MoveBubble();
@@ -73,6 +74,7 @@ public class BubbleMovement : MonoBehaviour
         _rb.linearVelocity = Vector3.zero;
         _renderer.enabled = false;
         _burstParticles.Play();
+        // Play burst sound here
     }
 
     private void ApplyGravity()
