@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Calling this BubbleMovement is bad. But in a jam project, mistakes were made...
 public class BubbleMovement : MonoBehaviour
 {
     [SerializeField] private GameObject _camera;
@@ -8,6 +9,9 @@ public class BubbleMovement : MonoBehaviour
     [SerializeField] private float _customGrav;
     [SerializeField] private ParticleSystem _burstParticles;
     [SerializeField] private ParticleSystem _boostParticles;
+    [SerializeField] private AudioClip[] _SFXClips; // This can be a scriptable object
+    private AudioSource _bubbleSFX;
+
     private MeshRenderer _renderer;
     private Transform _transform;
     private Rigidbody _rb;
@@ -20,6 +24,7 @@ public class BubbleMovement : MonoBehaviour
 
     private void Awake()
     {
+        _bubbleSFX = GetComponent<AudioSource>();
         _transform = GetComponent<Transform>();
         _renderer = GetComponent<MeshRenderer>();
         _rb = GetComponent<Rigidbody>();
@@ -74,7 +79,8 @@ public class BubbleMovement : MonoBehaviour
         _rb.linearVelocity = Vector3.zero;
         _renderer.enabled = false;
         _burstParticles.Play();
-        // Play burst sound here
+        _bubbleSFX.clip = _SFXClips[1]; // Selecting SFX_Burst
+        _bubbleSFX.Play();
     }
 
     private void ApplyGravity()

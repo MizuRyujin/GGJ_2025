@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager ManagerInstance { get; private set; }
     [SerializeField] private AudioSource _introSound;
+    [SerializeField] private AudioSource _gameLossSound;
     public Action OnStartGame;
     public Action OnPauseGame;
     public Action OnBubbleBurst;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
             ManagerInstance = _instance;
             DontDestroyOnLoad(_instance);
         }
+        OnBubbleBurst += _gameLossSound.Play;
     }
 
     // Update is called once per frame
